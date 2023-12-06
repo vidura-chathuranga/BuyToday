@@ -1,9 +1,15 @@
 import express from "express";
-const port = 5000;
+import connectDB from "./configs/db.js";
 import products from "./products.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
+// connect DB
+connectDB();
+
+const port = process.env.PORT || 6000;
 app.use((req, res, next) => {
   console.log(`${req.method} =======> ${req.url}`);
   next();
@@ -26,4 +32,5 @@ app.get("/api/products/:id", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server up on PORT : ${port}`);
+  
 });
