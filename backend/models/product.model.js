@@ -62,12 +62,12 @@ const productSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    reviews: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    numReviews: [reviewSchema],
+    reviews:  [reviewSchema],
+    numReviews:{
+        type: Number,
+        required: true,
+        default: 0,
+      },
   },
   { timestamps: true }
 );
