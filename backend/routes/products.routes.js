@@ -4,6 +4,8 @@ import products from "../data/products.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/product.model.js";
 
+
+
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -19,9 +21,12 @@ router.get(
 
     if(product){
       return res.send(product);
+    }else{
+      res.status(404);
+      throw new Error("Product not found");
     }
     
-    res.status(404).json({message : "Product Not Found"});
+    
   })
 );
 
