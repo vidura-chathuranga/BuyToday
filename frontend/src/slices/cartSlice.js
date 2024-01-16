@@ -19,7 +19,9 @@ const cartSlice = createSlice({
 
       if (existItem) {
         state.cartItems = state.cartItems.map((x) =>
-          x._id === existItem._id ? item : x
+          x._id === existItem._id
+            ? { ...existItem, qty: Number(item.qty + existItem.qty) }
+            : x
         );
       } else {
         state.cartItems = [...state.cartItems, item];
@@ -37,15 +39,17 @@ const cartSlice = createSlice({
       state.taxPrice = addDecimals(Number(0.15 * state.itemsPrice).toFixed(2));
 
       // calculate the total price
-      state.totalPrice = Number(
-        state.itemsPrice + Number(state.shippingPrice) + Number(state.taxPrice)
+      state.totalPrice = (
+        Number(state.itemsPrice) +
+        Number(state.shippingPrice) +
+        Number(state.taxPrice)
       ).toFixed(2);
 
-    //   save in the localstorage
-    localStorage.setItem('cart',JSON.stringify(state));
+      //   save in the localstorage
+      localStorage.setItem("cart", JSON.stringify(state));
     },
   },
 });
 
-export const {addToCart} = cartSlice.actions;
+export const { addToCart } = cartSlice.actions;
 export default cartSlice.reducer;
