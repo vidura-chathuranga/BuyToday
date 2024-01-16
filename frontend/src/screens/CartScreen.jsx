@@ -28,7 +28,9 @@ const CartScreen = () => {
     dispatch(removeFromCart(productId));
   };
 
-  const checkoutHandler = () => {};
+  const checkoutHandler = () => {
+    navigate(`/login?redirect=/shipping`);
+  };
   return (
     <Row>
       <Col md={8}>
