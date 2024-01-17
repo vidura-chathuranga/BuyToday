@@ -4,6 +4,7 @@ import { notFound,errorHandler } from "./middleware/errorHandler.js";
 import dotenv from 'dotenv';
 import productsRoutes from './routes/products.routes.js';
 import userRoutes from './routes/user.routes.js';
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -14,6 +15,12 @@ connectDB();
 
 const port = process.env.PORT || 6000;
 
+// body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+// cookie parser middleware
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   console.log(`${req.method} =======> ${req.url}`);
@@ -28,7 +35,7 @@ app.get("/", (req, res) => {
 // product routes
 app.use('/api/products',productsRoutes);
 
-// users routes
+// users ro
 app.use('/api/users',userRoutes);
 
 app.use(notFound);
