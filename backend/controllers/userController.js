@@ -14,7 +14,7 @@ const authUser = asyncHandler(async (req, res) => {
     // generate token
     generateToken(res, user._id);
 
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -60,6 +60,7 @@ const registerUser = asyncHandler(async (req, res) => {
     } else {
       res.status(400);
       throw new Error("Invalid user data");
+    }
   }
 });
 
@@ -79,7 +80,19 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @route GET /api/users/profile
 // @access private
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.send(" get user profile");
+  // if user authorized by the auth middleware, then in the request there is a user object
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    throw new Error("User not found");
+  }
 });
 
 // @desc update user profile
