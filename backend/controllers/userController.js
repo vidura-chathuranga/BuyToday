@@ -99,7 +99,31 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @route PUT /api/users/profile
 // @access private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  res.send("update user profile");
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    // update only the frontend updated fields only
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    /*if user updated their password, then only this block will trigger, because we created a method in the user model to 
+    hash the password when the password is changed by the user, It will automatically trigger if user changes the password field
+    */
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    throw new Error("User not found");
+  }
 });
 
 // @desc Get Users
