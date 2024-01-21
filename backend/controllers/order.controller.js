@@ -1,3 +1,4 @@
+import { json } from "express";
 import asyncHandler from "../middleware/asyncHandler.js";
 import Order from "../models/order.model.js";
 
@@ -72,7 +73,29 @@ const getOrderById = asyncHandler(async (req, res) => {
 // @route PUT /api/orders/:id/pay
 // @access private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
-  res.send("Update order to paid");
+  const { id } = req.params;
+
+  const updatedOrder = await Order.findByIdAndUpdate(
+    id,
+    {
+      isPaid: true,
+      paidAt: Date.now(),
+      paymentResult: {
+        id: req.body.id,
+        status: req.body.id,
+        update_time: req.body.update_time,
+        email_address: req.body.payer.email_address,
+      },
+    },
+    { new: true }
+  );
+
+  if (updatedOrder) {
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(500);
+    throw new Error("order payment failed");
+  }
 });
 
 // @desc Update to delivered
