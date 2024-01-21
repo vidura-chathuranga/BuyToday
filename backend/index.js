@@ -4,6 +4,7 @@ import { notFound,errorHandler } from "./middleware/errorHandler.js";
 import dotenv from 'dotenv';
 import productsRoutes from './routes/products.routes.js';
 import userRoutes from './routes/user.routes.js';
+import orderRoutes from './routes/order.routes.js';
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -37,6 +38,9 @@ app.use('/api/products',productsRoutes);
 
 // users ro
 app.use('/api/users',userRoutes);
+
+// order routes
+app.use('/api/orders',orderRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
