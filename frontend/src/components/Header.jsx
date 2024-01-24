@@ -4,7 +4,6 @@ import {
   Container,
   Badge,
   NavDropdown,
-  Dropdown,
 } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";

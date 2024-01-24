@@ -28,23 +28,42 @@ const getProductById = asyncHandler(async (req, res) => {
 // @access private/Admin
 const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
-    name : 'Sample Name',
-    price : 0,
-    user : req.user._id,
-    image:'/images/sample.jpg',
-    brand:"Sample brand",
-    countInStock : 0,
-    numReviews:0,
-    description:"Sample description",
-    category:"Sample category"
+    name: "Sample Name",
+    price: 0,
+    user: req.user._id,
+    image: "/images/sample.jpg",
+    brand: "Sample brand",
+    countInStock: 0,
+    numReviews: 0,
+    description: "Sample description",
+    category: "Sample category",
   });
 
   const createdProduct = await product.save();
   res.status(201).json(createdProduct);
-
 });
-export {
-    getProducts,
-    getProductById,
-    createProduct
-}
+
+// @desc update a product details
+// @route PUT /api/products/:id
+// @access private/Admin
+const updateProduct = asyncHandler(async (req, res) => {
+  // get product Id
+  const { id: productId } = req.params;
+
+  const { name, price, description, image, brand, category, countInStock } =
+    req.body;
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    productId,
+    { name, price, description, image, brand, category, countInStock},
+    { new: true }
+  );
+
+  if(updatedProduct){
+    res.status(200).json(updatedProduct);
+  }else{
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+export { getProducts, getProductById, createProduct,updateProduct };
