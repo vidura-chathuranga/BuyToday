@@ -1,6 +1,7 @@
 import {
   useUpdateProductMutation,
   useGetProductByIdQuery,
+  useUploadProductImageMutation,
 } from "../../slices/productApiSlice";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -26,6 +27,8 @@ const ProductEditScreen = () => {
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
 
+  const [uploadProductImage, { isLoading: loadingUpload }] =
+    useUploadProductImageMutation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +66,20 @@ const ProductEditScreen = () => {
       toast.error(error?.data?.message || error?.error);
     }
   };
+
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+
+    formData.append("image", e.target.files[0]);
+
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      toast.success(res.message);
+      setImage(res.image);
+    } catch (error) {
+      toast.error(error?.data?.message || error?.error);
+    }
+  };
   return (
     <>
       <Link to={`/admin/productslist`} className="btn btn-light my-3">
@@ -95,7 +112,22 @@ const ProductEditScreen = () => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Form.Group>
-            {/* Image input placeholder */}
+            <Form.Group controlId="image" className="my-2">
+              <Form.Label>Product image</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter image Url"
+                value={image}
+                onChange={(e) => setImage}
+              />
+              <Form.Control
+                type="file"
+                label="choose file"
+                onChange={uploadFileHandler}
+                accept="image/*"
+              />
+            </Form.Group>
+
             <Form.Group controlId="brand" className="my-2">
               <Form.Label>Brand</Form.Label>
               <Form.Control

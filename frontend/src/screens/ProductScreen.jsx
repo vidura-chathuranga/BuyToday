@@ -30,6 +30,7 @@ const ProductScreen = () => {
       navigate('/cart');
     };
   
+    
   return (
     <>
       <Link className="btn btn-light my-3" to={"/"}>
@@ -41,7 +42,7 @@ const ProductScreen = () => {
         <Message variant={"danger"}>
           {error?.data?.message || error?.error}
         </Message>
-      ) : (
+      ) : ( 
         <Row>
           <Col md={5}>
             <Image src={product.image} alt={product.name} fluid />

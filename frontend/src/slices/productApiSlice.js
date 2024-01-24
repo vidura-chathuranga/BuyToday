@@ -1,4 +1,4 @@
-import { PRODUCT_URL } from "../constants";
+import { PRODUCT_URL, UPLOADS_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
 export const productsApiSlice = apiSlice.injectEndpoints({
@@ -8,7 +8,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         url: PRODUCT_URL,
       }),
       keepUnusedDataFor: 5,
-      providesTags:['Products']
+      providesTags: ["Products"],
     }),
     getProductById: builder.query({
       query: (productId) => ({
@@ -21,24 +21,37 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         url: `${PRODUCT_URL}`,
         method: "POST",
       }),
-      invalidatesTags:['Products']
+      invalidatesTags: ["Products"],
     }),
-    updateProduct : builder.mutation({
-        query : (data)=>({
-            url : `${PRODUCT_URL}/${data.productId}`,
-            method : "PUT",
-            body : data
-        }),
-        invalidatesTags:['Products']
+    updateProduct: builder.mutation({
+      query: (data) => ({
+        url: `${PRODUCT_URL}/${data.productId}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Products"],
     }),
-    deleteProduct : builder.mutation({
-        query : (productId)=>({
-            url:`${PRODUCT_URL}/${productId}`,
-            method : "DELETE"
-        }),
-        invalidatesTags:['Products']
-    })
+    uploadProductImage: builder.mutation({
+      query: (data) => ({
+        url: `${UPLOADS_URL}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (productId) => ({
+        url: `${PRODUCT_URL}/${productId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery,useCreateProductMutation,useUpdateProductMutation } = productsApiSlice;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useCreateProductMutation,
+  useUpdateProductMutation,
+  useUploadProductImageMutation
+} = productsApiSlice;

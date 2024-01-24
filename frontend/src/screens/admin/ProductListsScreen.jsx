@@ -1,6 +1,6 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
-import {FaEdit, FaTrash } from "react-icons/fa";
+import {FaPlus,FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
@@ -33,8 +33,8 @@ const ProductListsScreen = () => {
           <h1>Products</h1>
         </Col>
         <Col className="text-end">
-          <Button className="btn-sm m-3" onClick={createProductHandler}>
-            <FaEdit /> Create Product
+          <Button className=" btn-sm " onClick={createProductHandler}>
+            <FaPlus /> Create Product
           </Button>
         </Col>
       </Row>
@@ -47,7 +47,7 @@ const ProductListsScreen = () => {
         </Message>
       ) : (
         <>
-          <Table striped hover responsive className="table-sm">
+          <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
                 <th>ID</th>
