@@ -4,9 +4,11 @@ const router = express.Router();
 import {
   getProductById,
   getProducts,
+  createProduct,
 } from "../controllers/products.controller.js";
+import { admin, protect } from "../middleware/authMiddleware.js";
 
-router.get("/", getProducts);
+router.route("/").get(getProducts).post(protect, admin, createProduct);
 
 router.get("/:id", getProductById);
 

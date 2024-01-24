@@ -4,7 +4,6 @@ import {
   Col,
   ListGroup,
   Image,
-  Form,
   Button,
   Card,
 } from "react-bootstrap";
@@ -63,11 +62,13 @@ const OrderDetailsScreen = () => {
     }
   }, [order, paypal, loadingPaypal, errorPayPal, paypalDispatch]);
 
-  const onApproveTest = async () => {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch();
-    toast.success("Payment successfull");
-  };
+  // Payment Testing function
+  // const onApproveTest = async () => {
+  //   await payOrder({ orderId, details: { payer: {} } });
+  //   refetch();
+  //   toast.success("Payment successfull");
+  // };
+  
   const createOrder = (data, action) => {
     return action.order
       .create({
