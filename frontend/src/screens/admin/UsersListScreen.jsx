@@ -47,7 +47,7 @@ const UsersListScreen = () => {
         </Col>
       </Row>
       {/* {loadingCreate && <Loader />} */}
-      {/* {productDeleteLoading && <Loader />} */}
+      {loadingDelete && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
