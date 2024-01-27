@@ -55,15 +55,38 @@ const updateProduct = asyncHandler(async (req, res) => {
 
   const updatedProduct = await Product.findByIdAndUpdate(
     productId,
-    { name, price, description, image, brand, category, countInStock},
+    { name, price, description, image, brand, category, countInStock },
     { new: true }
   );
 
-  if(updatedProduct){
+  if (updatedProduct) {
     res.status(200).json(updatedProduct);
-  }else{
+  } else {
     res.status(404);
     throw new Error("Product not found");
   }
 });
-export { getProducts, getProductById, createProduct,updateProduct };
+
+// @desc delete a product
+// @route DELETE /api/products/:id
+// @access private/Admin
+const deleteProduct = asyncHandler(async (req, res) => {
+  // get product Id
+  const { id: productId } = req.params;
+
+  const deletedProduct = await Product.findByIdAndDelete(productId);
+
+  if (deletedProduct) {
+    res.status(200).json(deletedProduct);
+  } else {
+    res.status(500);
+    throw new Error("Product not found");
+  }
+});
+export {
+  getProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};
