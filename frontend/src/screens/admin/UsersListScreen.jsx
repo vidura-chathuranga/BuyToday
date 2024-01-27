@@ -1,6 +1,13 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
-import { FaPlus, FaEdit, FaTrash, FaTimes, FaCheck } from "react-icons/fa";
+import {
+  FaPlus,
+  FaEdit,
+  FaTrash,
+  FaTimes,
+  FaCheck,
+  FaTrophy,
+} from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
@@ -13,8 +20,18 @@ const UsersListScreen = () => {
   // get user details
   const { data: users, isLoading, error } = useGetUsersQuery();
 
+  //   delete user mutation
+  const [deleteUser, { isLoading: loadingDelete }] = useDeleteUserMutation();
+
   const deleteUserHandler = async (userId) => {
-    console.log(userId);
+    if (window.confirm("Are you sure ? ")) {
+      try {
+        await deleteUser(userId);
+        toast.success("User removed successfully");
+      } catch (error) {
+        toast.error(error?.data?.message || error?.error);
+      }
+    }
   };
   const addUserHandler = async () => {};
   return (
@@ -57,7 +74,13 @@ const UsersListScreen = () => {
                   <td>
                     <a href={`mailto:${user.email}`}>{user.email}</a>
                   </td>
-                  <td>{user.isAdmin ? <FaCheck color="green"/> : <FaTimes color="red"/>}</td>
+                  <td>
+                    {user.isAdmin ? (
+                      <FaCheck color="green" />
+                    ) : (
+                      <FaTimes color="red" />
+                    )}
+                  </td>
                   <td>
                     <LinkContainer to={`/admin/user/${user._id}/edit`}>
                       <Button variant="light" className="btn-sm mx-2">
