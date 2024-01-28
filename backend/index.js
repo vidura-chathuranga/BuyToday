@@ -66,5 +66,5 @@ app.use(notFound);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Server up on PORT : ${port}`);
+  console.log(`Server up in ${process.env.NODE_ENV} mode on PORT : ${port}`);
 });
