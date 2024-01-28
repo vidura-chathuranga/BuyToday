@@ -40,11 +40,6 @@ const UsersListScreen = () => {
         <Col>
           <h1>Users</h1>
         </Col>
-        <Col className="text-end">
-          <Button className=" btn-sm " onClick={addUserHandler}>
-            <FaPlus /> Add user
-          </Button>
-        </Col>
       </Row>
       {/* {loadingCreate && <Loader />} */}
       {loadingDelete && <Loader />}
