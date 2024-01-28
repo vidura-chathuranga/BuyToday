@@ -1,10 +1,4 @@
-import {
-  Navbar,
-  Nav,
-  Container,
-  Badge,
-  NavDropdown,
-} from "react-bootstrap";
+import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { LinkContainer } from "react-router-bootstrap";
@@ -12,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { removeCredentials } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import SearchBox from "./SearchBox";
 
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
@@ -47,6 +42,8 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse aria-controls="basic-navbar-nav">
             <Nav className="ms-auto">
+              {/* search box */}
+              <SearchBox />
               <LinkContainer to={"/cart"}>
                 <Nav.Link>
                   <FaShoppingCart /> Cart{" "}
@@ -75,13 +72,13 @@ function Header() {
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title={"Admin"} id="adminMenu">
-                  <LinkContainer to={'/admin/productslist'}>
+                  <LinkContainer to={"/admin/productslist"}>
                     <NavDropdown.Item>Products</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to={'/admin/userlist'}>
+                  <LinkContainer to={"/admin/userlist"}>
                     <NavDropdown.Item>Users</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to={'/admin/orderlist'}>
+                  <LinkContainer to={"/admin/orderlist"}>
                     <NavDropdown.Item>Orders</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
