@@ -103,7 +103,11 @@ const ProductListsScreen = () => {
             </tbody>
           </Table>
           {/* pagination component */}
-          <Paginate pages={data.pages} page={data.page} isAdmin />
+          <Row>
+            <Col className="d-flex justify-content-end">
+              <Paginate pages={data.pages} page={data.page} isAdmin />
+            </Col>
+          </Row>
         </>
       )}
     </>
