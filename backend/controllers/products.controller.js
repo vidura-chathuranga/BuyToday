@@ -94,20 +94,19 @@ const createProductReview = asyncHandler(async (req, res) => {
   // get review data from request body
   const { rating, comment } = req.body;
 
-  const product = await Product.findOne({ _id: productId });
+  const product = await Product.findById(productId);
 
   if (product) {
     const alreadyReviwed = product.reviews.find(
       (review) => review.user.toString() === req.user._id.toString()
     );
 
-    console.log(alreadyReviwed);
-
     if (alreadyReviwed) {
       res.status(400);
       throw new Error("Product already reviewed");
     }
 
+    console.log(req.user);
     const review = {
       name: req.user.name,
       rating: Number(rating),
@@ -130,7 +129,7 @@ const createProductReview = asyncHandler(async (req, res) => {
     // save the updated product details
     await product.save();
 
-    res.status(201).json({ message: "Product added" });
+    res.status(201).json({ message: "Product review added" });
   } else {
     res.status(404);
     throw new Error("Product not found");
@@ -142,5 +141,5 @@ export {
   createProduct,
   updateProduct,
   deleteProduct,
-  createProductReview
+  createProductReview,
 };
