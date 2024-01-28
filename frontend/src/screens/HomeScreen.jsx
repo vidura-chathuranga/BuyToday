@@ -1,4 +1,4 @@
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Products from "../components/Products";
 import { useGetProductsQuery } from "../slices/productApiSlice";
 import Loader from "../components/Loader";

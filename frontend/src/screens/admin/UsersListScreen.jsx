@@ -1,19 +1,11 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
-import {
-  FaPlus,
-  FaEdit,
-  FaTrash,
-  FaTimes,
-  FaCheck,
-  FaTrophy,
-} from "react-icons/fa";
+import { FaEdit, FaTrash, FaTimes, FaCheck } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import {
   useGetUsersQuery,
-  useUpdateUserDetailsMutation,
   useDeleteUserMutation,
 } from "../../slices/usersApiSlice";
 const UsersListScreen = () => {
@@ -33,7 +25,7 @@ const UsersListScreen = () => {
       }
     }
   };
-  const addUserHandler = async () => {};
+  
   return (
     <>
       <Row className="align-items-center">
