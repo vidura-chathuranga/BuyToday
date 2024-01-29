@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { removeCredentials } from "../slices/authSlice";
+import { resetCart } from "../slices/cartSlice";
 import { useNavigate } from "react-router-dom";
 import SearchBox from "./SearchBox";
 
@@ -24,6 +25,7 @@ function Header() {
     try {
       await logout().unwrap();
       dispatch(removeCredentials());
+      dispatch(resetCart());
       navigate("/");
     } catch (error) {
       console.log(error);
