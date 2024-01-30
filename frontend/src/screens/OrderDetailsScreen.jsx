@@ -1,12 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Button,
-  Card,
-} from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import {
@@ -68,7 +61,7 @@ const OrderDetailsScreen = () => {
   //   refetch();
   //   toast.success("Payment successfull");
   // };
-  
+
   const createOrder = (data, action) => {
     return action.order
       .create({
@@ -167,7 +160,8 @@ const OrderDetailsScreen = () => {
                       <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={4}>
-                      {item.qty} x ${item.price} = ${item.qty * item.price}
+                      {item.qty} x ${item.price} = $
+                      {(item.qty * (item.price * 100)) / 100}
                     </Col>
                   </Row>
                 </ListGroup.Item>
